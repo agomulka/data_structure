@@ -1,6 +1,7 @@
 public class MyBinaryTree<X extends Comparable> {
     Node root;
     int size;
+    static String str = "";
 
     public MyBinaryTree(){
         this.root = null;
@@ -145,7 +146,55 @@ public class MyBinaryTree<X extends Comparable> {
     }
 
 
-    private class Node{
+    public String print(){
+        if(this.root == null) throw new IllegalStateException("Empty tree");
+        treeToString(this.root);
+        return str;
+    }
+
+    private void treeToString(Node x){
+        if(x == null){
+            return;
+        }
+        else{
+            str += String.valueOf((Object) x.getValue());
+            if(x.getLeft() != null){
+                str += "(";
+                treeToString(x.getLeft());
+                str += ")";
+            }
+            if(x.getRight() != null){
+                str += "(";
+                treeToString(x.getRight());
+                str += ")";
+            }
+        }
+
+    }
+
+    public boolean isBalanced(){
+        boolean balanced = false;
+        if(this.root == null) throw new IllegalStateException("Empty tree");
+        int leftHeight = 0, rightHeight = 0;
+        if(this.root.getLeft() != null)
+            leftHeight = getHeight(this.root.getLeft());
+        if(this.root.getRight() != null)
+            rightHeight = getHeight(this.root.getRight());
+        if(leftHeight == rightHeight) balanced = true;
+        return balanced;
+    }
+
+    private int getHeight(Node x){
+        int lH, rH;
+        if(x == null) return 0;
+        else {
+            lH = getHeight(x.getLeft());
+            rH = getHeight(x.getRight());
+            if (lH > rH) return (lH + 1);
+            else return (rH + 1);
+        }
+    }
+    public class Node{
         private Node parent, left, right;
         private X value;
 
