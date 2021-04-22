@@ -1,3 +1,6 @@
+import java.util.PriorityQueue;
+import java.util.concurrent.SynchronousQueue;
+
 public class MyQueue implements Queue {
     private Object[] data;
     private int start, end;
@@ -5,6 +8,7 @@ public class MyQueue implements Queue {
     public MyQueue() {
         this(1000);
     }
+
 
     public MyQueue(int size) {
         data = new Object[size];
